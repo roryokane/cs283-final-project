@@ -1,5 +1,7 @@
 # encoding: utf-8
 
-def convert_bc_to_c(better_c)
-	better_c.reverse
-end
+require_relative 'converting'
+
+input = STDIN.read
+output = convert_bc_to_c(input)
+puts output

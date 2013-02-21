@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 require 'sinatra'
-require_relative 'convert'
+require_relative 'converting'
 require_relative 'config_loader'
 
 CONFIG = ConfigLoader.new.config_for("server")
