@@ -1,0 +1,3 @@
+server:
+  default options:
+    !ruby/symbol port: 4567
