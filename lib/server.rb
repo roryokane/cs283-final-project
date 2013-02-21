@@ -29,6 +29,7 @@ configure do
 	set :port, options[:port]
 end
 
+# GET is appropriate because the result is idempotent; conversions always work the same way
 get '/convert' do
 	input = request.body.string
 	convert_bc_to_c(input)
