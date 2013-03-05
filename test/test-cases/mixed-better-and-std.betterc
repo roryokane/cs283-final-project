@@ -1,0 +1,17 @@
+// sample C code with embedded better C
+// represents the reasonable use-case of standard but well-written C edited to add/change some code in better C
+
+int main(int argc, const char *argv[])
+{
+	if (true == false) { // a perfectly innocuous comment that might mess things up
+		int a = 2;
+		// now comes my code
+		int b = 4
+		printf("a and b are %d and %d", a, b)
+		if a < b && a > b
+			exit(1)
+		// back to foreign, normal C code
+	}
+	
+	return 0;
+}
