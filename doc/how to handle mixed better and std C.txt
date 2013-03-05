@@ -1,0 +1,5 @@
+how to detect existing values:
+- extra parens around if and while statement conditions won’t hurt. but they might not work around for loops - test. (are there other similar constructs?)
+- Extra semicolons won't hurt either, but they would look ugly, and the output is supposed to be human-readable. Thankfully, it shouldn't be too hard to notice that the line ended with a semicolon and leave it.
+- also need to detect that previous line started with { at indent, or next line starts with } at dedent, and not emit those. whether { is in same line as other code shouldn’t change the parser code; as long as the indent level of the following code is correct, that will be enough.
+- that would also mean that it doesn’t support the style of { on its own line, indented with the code, unless I handle that specifically. That's fine to leave for later - it's a rare style, and I'm imposing some constraints such as correct indentation anyway.

@@ -1,0 +1,118 @@
+Should I lex and then parse, or lex and insert tokens as I go?
+
+Probably lex while storing states, then parse and manipulate tree, then export
+
+Let me try that with a tiny example program.
+
+---
+int main(int argc, const char *argv[])
+	printf("Hello world")
+	return 0
+---
+
+Next, my preprocessor might add INDENT and DEDENT tokens. (I might be able to figure out a way to combine this pass with the next one, but to start with, I’ll think of it as a separate pass.) Here is the text with those tokens (where they’re written as <I> and <D>):
+
+---
+int main(int argc, const char *argv[])
+<I>printf("Hello world")
+return 0<D>
+---
+
+Now I lex and parse that, in one pass. The result should be a labeled tree of all text – this (written in Lisp-ish syntax):
+
+---
+(:code
+	"int main"
+	(:paren "(int argc, const char *argv[])")
+	:newline
+	:indent
+	"printf"
+	(:paren '("Hello world")')
+	:newline
+	"return 0"
+	:newline
+	:dedent
+)
+---
+
+Let me try having indentation and newline parsing be a second step, and see if that both that step and separating it is helpful:
+
+---
+(:code
+	(:line "int main" (:paren "(int argc, const char *argv[])") )
+	(:indented
+		(:line
+			"printf"
+			(:paren '("Hello world")')
+		)
+		(:line
+			"return 0"
+		)
+	)
+)
+---
+
+Now I have the tree for code, I want to make three changes to it. I’ll pretend they happen in three passes to start with, and once again, I might combine those passes later.
+
+The first pass is adding semicolons at the end of statements. Statements end at a newline inside of normal code. After this pass, this is the tree:
+
+---
+(:code
+	(:line "int main" (:paren "(int argc, const char *argv[])") )
+	(:indented
+		(:line
+			"printf"
+			(:paren '("Hello world")')
+			";"
+		)
+		(:line
+			"return 0"
+			";"
+		)
+	)
+)
+---
+
+In the second pass, we add curly braces around indented blocks. Their placement is according to the user’s preferences. Here I put the opening brace on the previous line.
+
+---
+(:code
+	(:line "int main" (:paren "(int argc, const char *argv[])") " {")
+	(:indented
+		(:line
+			"printf"
+			(:paren '("Hello world")')
+			";"
+		)
+		(:line
+			"return 0"
+			";"
+		)
+	)
+	(:line "}")
+)
+---
+
+I’m wondering if that’s the best way to organize the tree before and after that pass, though. It seems a little hacky, the way text is added *inside* a *sibling* to what it’s actually relevant to. Then again, modifying relatively pure text to add C’s syntax *is* adding hackiness, in a sense – is it unavoidable?
+
+The third pass searches for ifs, whiles, and fors and adds parentheses. There aren’t any in this code sample, so nothing happens. I won’t bother writing the same tree again
+
+Now it’s time to start writing the output text.
+
+We write the tree back into tokens. It’s basically removing the header of each subtree, and then flattening the whole tree.
+
+---
+int main(int argc, const char *argv[]) {
+<I>printf("Hello world");
+return 0;<D>
+}
+---
+
+Finally, we convert indent and dedent tokens to text, following the original indentation scheme:
+
+---
+int main(int argc, const char *argv[]) {
+	printf("Hello world");
+	return 0;
+}
+---
