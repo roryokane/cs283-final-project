@@ -2,26 +2,7 @@
 
 require_relative 'helper'
 
-require_relative '../lib/solver'
-
-class TestParser < MiniTest::Unit::TestCase
-	def setup
-		@parser = Parser.new
-	end
-	
-	def test_state_after_reading_input
-		assert_all_equal_after_processing({
-			"a" => [],
-			"(" => [:paren],
-			"a(b(c" => [:paren, :paren],
-			"'foo" => [:single_quote],
-			"'foo'" => [],
-		}) do |input|
-			@parser.simulate(input)
-			@parser.state_stack
-		end
-	end
-end
+require_relative '../lib/converting'
 
 class TestIntegratedConversions < MiniTest::Unit::TestCase
 	def with_input_stream_for_test_case(filename)
@@ -42,18 +23,27 @@ class TestIntegratedConversions < MiniTest::Unit::TestCase
 		output
 	end
 	
+	def compile_from_and_to_streams(input_stream, output_stream)
+		input = input_stream.read
+		output = convert_bc_to_c(input)
+		output_stream.write(output)
+	end
+	
 	def test_samples
-		# TODO automatically iterate through all sample files
-		(1..3).each do |sample_number|
+		# TODO automatically iterate through all sample files in folder
+		test_case_names = ["basic-full"]
+		#test_case_names = ["basic-full", "k&r-cat-v2"]
+		
+		test_case_names.each do |test_case_name|
 			
 			output = ""
-			with_input_stream_for_test_case("sample#{sample_number}") do |input_stream|
+			with_input_stream_for_test_case(test_case_name) do |input_stream|
 				output = string_output_from_using_output_stream do |output_stream|
-					export_graph_from_stream(input_stream, output_stream)
+					compile_from_and_to_streams(input_stream, output_stream)
 				end
 			end
 			
-			expected_output = expected_output_for_test_case("sample#{sample_number}")
+			expected_output = expected_output_for_test_case(test_case_name)
 			assert_equal expected_output, output
 		end
 	end
