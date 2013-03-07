@@ -34,14 +34,14 @@ To try out the command-line tool:
 
     echo "code" | bin/convert
 
-To use the command-line tool:
+To use the command-line tool to process a `.betterc` file:
 
-	bin/convert < input-file.betterc > output-file.c
+	bin/convert < my-file.betterc > my-file.c
 
 To try the server, first, start the server:
 
 	bin/server
 
-then run this in a different terminal to convert "data" (requires [HTTPie](https://github.com/jkbr/httpie)):
+then run this in a different terminal (requires [HTTPie](https://github.com/jkbr/httpie)):
 
 	echo "code" | http GET localhost:4567/convert
