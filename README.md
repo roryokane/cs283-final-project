@@ -14,7 +14,7 @@ The language makes these basic changes to C’s syntax:
 
 Prerequisites:
 
-- [Ruby](http://www.ruby-lang.org/) 1.9 or later
+- [Ruby](http://www.ruby-lang.org/) 2.0
     - as specified in the `.rbenv-version` file, for use with [rbenv](https://github.com/sstephenson/rbenv)
 - [Bundler](http://gembundler.com/) (for Ruby)
     - just `gem install bundler` if you don’t have it

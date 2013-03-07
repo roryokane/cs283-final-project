@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 def convert_bc_to_c(better_c)
 	dumb_implementation(better_c)
 end
