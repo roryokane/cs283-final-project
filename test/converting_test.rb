@@ -34,7 +34,7 @@ class TestIntegratedConversions < MiniTest::Unit::TestCase
 		test_case_file_paths = Dir.entries(test_cases_path).select{ |path| ! path.start_with?('.') }
 		common_extension = ".betterc"
 		test_case_input_file_paths = test_case_file_paths.select{ |path| path.end_with?(common_extension) }
-		test_case_names = test_case_input_file_paths.map{ |path| File.basename(path, common_extension) }
+		return test_case_input_file_paths.map{ |path| File.basename(path, common_extension) }
 	end
 	
 	def test_samples
