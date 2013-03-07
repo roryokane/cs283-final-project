@@ -46,7 +46,7 @@ def dumb_implementation(better_c)
 		line_needs_semicolon = true
 		
 		starting_cancels = ['#']
-		ending_cancels = %w[{ } ; , + -]
+		ending_cancels = %w[{ } ; , + - \\]
 		regex_cancels = [/^\s*$/, /^\s*\/\//]
 		
 		cancels_and_test_methods = {
