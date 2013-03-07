@@ -29,10 +29,15 @@ class TestIntegratedConversions < MiniTest::Unit::TestCase
 		output_stream.write(output)
 	end
 	
+	def test_case_names
+		test_cases_path = "test/test-cases"
+		test_case_file_paths = Dir.entries(test_cases_path).select{ |path| ! path.start_with?('.') }
+		common_extension = ".betterc"
+		test_case_input_file_paths = test_case_file_paths.select{ |path| path.end_with?(common_extension) }
+		test_case_names = test_case_input_file_paths.map{ |path| File.basename(path, common_extension) }
+	end
+	
 	def test_samples
-		# TODO automatically iterate through all sample files in folder
-		test_case_names = ["general-level-1", "general-level-2", "k&r-cat-v2"]
-		
 		test_case_names.each do |test_case_name|
 			
 			output = ""
