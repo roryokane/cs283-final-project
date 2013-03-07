@@ -1,0 +1,22 @@
+more C-like language fix ideas:
+…
+C language specific:
+look for generic rules similar to the rule I know "`{ statements }` is a `statement`", for an expression, parentheses, for loop conditions, lvalues, other things
+when declaring a variable like `char* a, b;`, copy the pointer markers so you end up with `char *a, *b;` instead of `char *a, b`
+	use cdecl.org to help with parsing types
+
+parse tree:
+---
+if (sum >= max)
+	printf("okay")
+exit(0)
+---
+---
+if (sum >= max)
+<I>printf("okay")
+<D>exit(0)
+---
+---
+(:root
+	…
+)

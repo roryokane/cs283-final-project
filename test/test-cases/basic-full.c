@@ -1,0 +1,6 @@
+int count = 0;
+while (true) {
+	count = foo(count);
+}
+
+printf("done");

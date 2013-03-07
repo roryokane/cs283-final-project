@@ -1,0 +1,19 @@
+C forms that have a keyword, a parenthesized consition, and a block (statement represented by indented statements inside of curly braces)
+for rule 3, which removes the parentheses in such forms
+
+check all C keywords in list at http://tigcc.ticalc.org/doc/keywords.html, and whether they are in such a form
+
+do … while
+for
+if
+if … else
+while
+switch … case … default
+
+the switch makes me think… a further development would be to make a switch-no-fall-through keyword that automatically adds “break;”
+
+
+keywords that take a block not of statements, but of something else – relevant to rule 2:
+
+enum
+struct
