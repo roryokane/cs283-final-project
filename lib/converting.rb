@@ -26,17 +26,26 @@ def dumb_implementation(better_c)
 	
 	# add {} from indents
 	# only works with tab indents right now
-	indent_level = 0
+	prev_indent_level = 0
 	original_lines = lines.dup
 	original_lines.each_with_index do |line, index|
-		line_indent_level = (line.match(/\t*/)[0]).size
-		if line_indent_level > indent_level
-			lines[index - 1] = lines[index - 1] + " {"
-		elsif line_indent_level < indent_level
-			indents = "\t" * line_indent_level
-			lines = lines.insert(index, indents + "}")
+		this_indent_level = (line.match(/\t*/)[0]).size
+		if this_indent_level > prev_indent_level
+			indent_increase = this_indent_level - prev_indent_level
+			# in actual programs, indent should never double-increase,
+			#  but handling it seems better than ignoring it
+			indent_increase.times do
+				lines[index - 1] = lines[index - 1] + " {"
+			end
+		elsif this_indent_level < prev_indent_level
+			closing_brace_lines = []
+			(prev_indent_level - 1).step(this_indent_level, -1).each do |closing_indent_level|
+				indents = "\t" * closing_indent_level
+				closing_brace_lines.push(indents + "}")
+			end
+			lines = lines.insert(index, *closing_brace_lines)
 		end
-		indent_level = line_indent_level
+		prev_indent_level = this_indent_level
 	end
 	
 	# add semicolons
