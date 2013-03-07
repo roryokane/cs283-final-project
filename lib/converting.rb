@@ -10,6 +10,9 @@ end
 
 def dumb_implementation(better_c)
 	lines = better_c.split("\n")
+	# #split("\n") ignores ending newline, so
+	#  I must keep track of it myself
+	has_ending_newline = better_c.end_with?("\n")
 	
 	# add parens around conditionals
 	original_lines = lines.dup
@@ -69,7 +72,11 @@ def dumb_implementation(better_c)
 		end
 	end
 	
-	return lines.join("\n")
+	result_text = lines.join("\n")
+	if has_ending_newline
+		result_text += "\n"
+	end
+	return result_text
 end
 
 def parsing_implementation(better_c)
