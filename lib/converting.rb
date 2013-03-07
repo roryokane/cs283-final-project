@@ -45,8 +45,8 @@ def dumb_implementation(better_c)
 	lines = lines.map do |line|
 		line_needs_semicolon = true
 		
-		starting_cancels = ["//"]
-		ending_cancels = ["{", "}", ";"]
+		starting_cancels = ['//']
+		ending_cancels = %w[{ } ; , + -]
 		regex_cancels = [/^\s*$/]
 		
 		starting_cancels.each do |start|
