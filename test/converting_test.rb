@@ -31,7 +31,7 @@ class TestIntegratedConversions < MiniTest::Unit::TestCase
 	
 	def test_samples
 		# TODO automatically iterate through all sample files in folder
-		test_case_names = ["basic-level-1", "basic-level-2", "k&r-cat-v2"]
+		test_case_names = ["general-level-1", "general-level-2", "k&r-cat-v2"]
 		
 		test_case_names.each do |test_case_name|
 			
