@@ -45,3 +45,7 @@ To try the server, first, start the server:
 then run this in a different terminal (requires [HTTPie](https://github.com/jkbr/httpie)):
 
 	echo "code" | http GET localhost:4567/convert
+
+### While editing this project
+
+To run all unit tests, run `rake test`.
