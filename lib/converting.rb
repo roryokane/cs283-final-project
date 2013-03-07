@@ -45,23 +45,20 @@ def dumb_implementation(better_c)
 	lines = lines.map do |line|
 		line_needs_semicolon = true
 		
-		starting_cancels = ['//']
+		starting_cancels = ['#']
 		ending_cancels = %w[{ } ; , + -]
-		regex_cancels = [/^\s*$/]
+		regex_cancels = [/^\s*$/, /^\s*\/\//]
 		
-		starting_cancels.each do |start|
-			if line.start_with?(start)
-				line_needs_semicolon = false
-			end
-		end
-		ending_cancels.each do |an_end|
-			if line.end_with?(an_end)
-				line_needs_semicolon = false
-			end
-		end
-		regex_cancels.each do |regex|
-			if line.match(regex)
-				line_needs_semicolon = false
+		cancels_and_test_methods = {
+			starting_cancels => :start_with?,
+			ending_cancels => :end_with?,
+			regex_cancels => :match,
+		}
+		cancels_and_test_methods.each do |cancels, test_method|
+			cancels.each do |cancel|
+				if line.send(test_method, cancel)
+					line_needs_semicolon = false
+				end
 			end
 		end
 		
