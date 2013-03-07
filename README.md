@@ -32,7 +32,7 @@ You can run this as a command-line tool or as a webserver.
 
 To try out the command-line tool:
 
-    echo "code" | bin/convert
+    echo "some_code()" | bin/convert
 
 To use the command-line tool to process a `.betterc` file:
 
@@ -44,7 +44,7 @@ To try the server, first, start the server:
 
 then run this in a different terminal (requires [HTTPie](https://github.com/jkbr/httpie)):
 
-	echo "code" | http GET localhost:4567/convert
+	echo "some_code()" | http GET localhost:4567/convert
 
 ### While editing this project
 
