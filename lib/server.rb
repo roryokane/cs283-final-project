@@ -6,6 +6,8 @@ CONFIG = ConfigLoader.new.config_for("server")
 
 # GET is appropriate because the result is idempotent; conversions always work the same way
 get '/convert' do
+	content_type :text
+	
 	input = request.body.string
 	convert_bc_to_c(input)
 end
