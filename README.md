@@ -52,7 +52,7 @@ To run all unit tests, run `rake test`.
 
 ## Project status
 
-I wrote down the wrong due date for this project and was forced to complete it hurriedly at the last minute. Thus, the code is a hack instead of the elegant parser I had planned. The program still basically works as planned – it successfully compiles `test/test-cases/basic-full.betterc` to `basic-full.c` in that directory – but it handles only the most common edge cases.
+I wrote down the wrong due date for this project and was forced to complete it hurriedly at the last minute. Thus, the code is a hack instead of the elegant parser I had planned. The program still basically works as planned – it successfully compiles `test/test-cases/general-level-2.betterc` to `general-level-2.c` in that directory – but it handles only the most common edge cases.
 
 This program successfully avoids adding semicolons to comment lines and lines with preprocessor directives. But it sometimes adds semicolons in the middle of multi-line parenthesized expressions. It only recognizes tabs for indentation, not spaces. It will do its extra processing in the middle of multiline comments. Thus, this program is currently a prototype plus a skeleton for a robust version – I do not recommend using it as is.
 
