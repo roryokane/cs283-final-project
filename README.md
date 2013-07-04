@@ -10,6 +10,14 @@ The language makes these basic changes to C’s syntax:
 - use indentation instead of braces `{}` for blocks
 - if, while, and for loops have no parentheses around their conditions
 
+Some example code in the language:
+
+    int count = 0
+    while true
+    	count = foo(count)
+    
+    printf("done")
+
 ## Installation
 
 Prerequisites:
@@ -37,6 +45,8 @@ To try out the command-line tool:
 To use the command-line tool to process a `.betterc` file:
 
 	bin/convert < my-file.betterc > my-file.c
+
+Sample `.betterc` files can be found in `test/test-cases/`.
 
 To try the server, first, start the server:
 
